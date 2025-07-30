@@ -1,40 +1,87 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Matchflix</title>
     <link rel="stylesheet" href="/style.css">
+    <!-- Bootstrap ekleyelim -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<header>
+<header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
     <h2 class="logo">Matchflix</h2>
     <div class="header-buttons">
-        <button>Kayıt Ol</button>
-        <button>Giriş</button>
+        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#registerModal">Kayıt Ol</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">Giriş</button>
     </div>
 </header>
 
 <!-- Yıldız arka planı -->
 <canvas id="stars"></canvas>
 
-<div class="container">
+<div class="container mt-4">
     <form id="movieForm" action="/add" method="post">
-        <div class="autocomplete">
-            <input type="text" id="movieInput" name="title" placeholder="Film adı" autocomplete="off" required>
-            <ul id="suggestions"></ul>
+        <div class="autocomplete mb-3">
+            <input type="text" id="movieInput" name="title" placeholder="Film adı" autocomplete="off" class="form-control" required>
+            <ul id="suggestions" class="list-group"></ul>
         </div>
-        <button type="submit" class="add">+ Film Ekle</button>
+        <button type="submit" class="btn btn-warning">+ Film Ekle</button>
     </form>
 </div>
 
-<div class="category-section">
-    <div class="category-title">🔥 Aksiyon</div>
-    <div class="carousel" id="carousel">
-        <!-- Başlangıçta boş olabilir -->
+<div class="category-section mt-5">
+    <div class="category-title h4">🔥 Aksiyon</div>
+    <div class="carousel d-flex gap-2 flex-wrap" id="carousel">
+        <!-- Kartlar buraya eklenecek -->
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4>Kayıt Ol</h4>
+            <form th:action="@{/users/add}" method="post">
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Kullanıcı Adı</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Şifre</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4>Giriş Yap</h4>
+            <form th:action="@{/users/login}" method="post">
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Şifre</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Giriş</button>
+            </form>
+        </div>
     </div>
 </div>
 
 <script src="/stars.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const form = document.getElementById("movieForm");
     const input = document.getElementById("movieInput");
@@ -55,7 +102,7 @@
 
         // Yeni kart oluştur ve carousele ekle
         const newCard = document.createElement("div");
-        newCard.classList.add("film-card", "filled");
+        newCard.classList.add("film-card", "filled", "p-2", "border", "rounded");
         newCard.textContent = title;
         carousel.appendChild(newCard);
 
@@ -68,7 +115,7 @@
         const query = this.value.trim();
         if (query.length >= 1) {
             suggestionBox.style.display = "block";
-            suggestionBox.innerHTML = "<li>Öneriler yükleniyor...</li>";
+            suggestionBox.innerHTML = "<li class='list-group-item'>Öneriler yükleniyor...</li>";
 
             try {
                 const response = await fetch(`/suggest?query=${query}`);
@@ -76,11 +123,12 @@
                     const suggestions = await response.json();
                     suggestionBox.innerHTML = "";
                     if (suggestions.length === 0) {
-                        suggestionBox.innerHTML = "<li>Sonuç bulunamadı</li>";
+                        suggestionBox.innerHTML = "<li class='list-group-item'>Sonuç bulunamadı</li>";
                     } else {
                         suggestions.forEach(title => {
                             const li = document.createElement("li");
                             li.textContent = title;
+                            li.classList.add("list-group-item");
                             li.onclick = () => {
                                 input.value = title;
                                 suggestionBox.style.display = "none";
@@ -90,7 +138,7 @@
                     }
                 }
             } catch {
-                suggestionBox.innerHTML = "<li>Sunucuya bağlanılamadı</li>";
+                suggestionBox.innerHTML = "<li class='list-group-item'>Sunucuya bağlanılamadı</li>";
             }
         } else {
             suggestionBox.style.display = "none";
