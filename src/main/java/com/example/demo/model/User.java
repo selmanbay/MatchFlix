@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.model;
 import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,7 +21,7 @@ public class User {
     private String username;
 //  com.example.demo.Movie list
     @ManyToMany
-    private List<Movie> watchedFilms;
+    private List<com.example.demo.model.Movie> watchedFilms;
 
     @ManyToMany
     private List<Movie> wishlistFilms;
