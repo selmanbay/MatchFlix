@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Matchflix</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <h2 class="logo">Matchflix</h2>
+    <div class="header-buttons">
+        <button>Kaydol</button>
+        <button>Giriş Yap</button>
+    </div>
+</header>
+
+<!-- Yıldız arka planı -->
+<canvas id="stars"></canvas>
+
+<div class="container">
+    <form id="movieForm" action="/add" method="post">
+        <div class="autocomplete">
+            <input type="text" id="movieInput" name="title" placeholder="Film adı" autocomplete="off" required>
+            <ul id="suggestions"></ul>
+        </div>
+        <button type="submit" class="add">+ Film Ekle</button>
+    </form>
+</div>
+
+<div class="category-section">
+    <div class="category-title">🔥 Aksiyon</div>
+    <div class="carousel" id="carousel">
+        <!-- Başlangıçta boş olabilir -->
+    </div>
+</div>
+
+<script src="/stars.js"></script>
+<script>
+    const form = document.getElementById("movieForm");
+    const input = document.getElementById("movieInput");
+    const carousel = document.getElementById("carousel");
+    const suggestionBox = document.getElementById("suggestions");
+
+    // Film ekleme
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const title = input.value.trim();
+        if (!title) return;
+
+        const formData = new FormData(form);
+        await fetch("/add", {
+            method: "POST",
+            body: formData
+        });
+
+        // Yeni kart oluştur ve carousele ekle
+        const newCard = document.createElement("div");
+        newCard.classList.add("film-card", "filled");
+        newCard.textContent = title;
+        carousel.appendChild(newCard);
+
+        input.value = "";
+        suggestionBox.style.display = "none";
+    });
+
+    // Suggestion menüsü
+    input.addEventListener("input", async function () {
+        const query = this.value.trim();
+        if (query.length >= 1) {
+            suggestionBox.style.display = "block";
+            suggestionBox.innerHTML = "<li>Öneriler yükleniyor...</li>";
+
+            try {
+                const response = await fetch(`/suggest?query=${query}`);
+                if (response.ok) {
+                    const suggestions = await response.json();
+                    suggestionBox.innerHTML = "";
+                    if (suggestions.length === 0) {
+                        suggestionBox.innerHTML = "<li>Sonuç bulunamadı</li>";
+                    } else {
+                        suggestions.forEach(title => {
+                            const li = document.createElement("li");
+                            li.textContent = title;
+                            li.onclick = () => {
+                                input.value = title;
+                                suggestionBox.style.display = "none";
+                            };
+                            suggestionBox.appendChild(li);
+                        });
+                    }
+                }
+            } catch {
+                suggestionBox.innerHTML = "<li>Sunucuya bağlanılamadı</li>";
+            }
+        } else {
+            suggestionBox.style.display = "none";
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0d0d0d; /* Tam siyah arka plan */
+    color: #f5f6fa;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(20, 20, 20, 0.95);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.4em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    cursor: default;
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+.logo:hover {
+    transform: scale(1.08);
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+}
+.header-buttons button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #f1f1f1;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.header-buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(146,141,171,0.4);
+}
+
+/* Stars Canvas */
+#stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -10;
+}
+
+/* Planets */
+.planet {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.7;
+    z-index: -5;
+}
+.planet.blue {
+    width: 180px; height: 180px;
+    top: 20%; left: 10%;
+    background: radial-gradient(circle, #3a7bd5, #0f2027);
+    box-shadow: 0 0 60px rgba(58,123,213,0.5);
+}
+.planet.orange {
+    width: 140px; height: 140px;
+    bottom: 18%; right: 15%;
+    background: radial-gradient(circle, #ff6a00, #ee0979);
+    box-shadow: 0 0 60px rgba(255,106,0,0.4);
+}
+
+/* Form Container */
+.container {
+    margin: 120px auto 60px;
+    width: 80%;
+    max-width: 900px;
+    background: rgba(25, 25, 25, 0.9);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+input {
+    flex: 1;
+    min-width: 280px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1em;
+    background: rgba(255,255,255,0.1);
+    color: #f1f1f1;
+    transition: all 0.3s ease;
+}
+input:focus {
+    outline: none;
+    transform: scale(1.04);
+    box-shadow: 0 0 15px rgba(0,114,255,0.6);
+    background: rgba(255,255,255,0.2);
+}
+button.add {
+    background: linear-gradient(135deg, #141E30, #243B55);
+    color: #fff;
+    border: none;
+    padding: 16px 35px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+button.add:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(36,59,85,0.6);
+}
+
+/* Film Categories */
+.category-section {
+    margin: 80px auto;
+    width: 90%;
+}
+.category-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+.carousel {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.film-card {
+    min-width: 230px;
+    height: 330px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Boş slot */
+.film-card.empty {
+    background: rgba(255,255,255,0.05);
+    color: #7f8c8d;
+}
+
+/* Dolu slot */
+.film-card.filled {
+    background: linear-gradient(135deg, #434343, #000000);
+    color: #f5f6fa;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+.film-card.filled:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(255,255,255,0.25);
+}
+.autocomplete {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+#suggestions {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    background: rgba(30,30,30,0.95);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+#suggestions li {
+    padding: 12px 15px;
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1em;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s ease;
+}
+
+#suggestions li:hover {
+    background: rgba(100, 149, 237, 0.3);
+    color: #fff;
+}
