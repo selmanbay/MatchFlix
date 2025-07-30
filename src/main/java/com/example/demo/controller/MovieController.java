@@ -25,9 +25,12 @@ public class MovieController {
     // Film ekleme
     @PostMapping("/add")
     public String addMovie(@RequestParam String title) {
-        movieService.addMovie(new Movie(title));
+        Movie movie = new Movie();
+        movie.setTitle(title);  // sadece title set ettik
+        movieService.addMovie(movie);
         return "redirect:/";
     }
+
 
     // Autocomplete için film önerileri
     @GetMapping("/suggest")
