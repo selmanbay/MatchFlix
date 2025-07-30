@@ -1,5 +1,3 @@
-package com.example.demo;
-
 import jakarta.persistence.*;
 
 @Entity
