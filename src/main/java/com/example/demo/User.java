@@ -1,3 +1,5 @@
+package com.example.demo;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +17,12 @@ public class User {
     private String password;
 
     private String username;
+//  com.example.demo.Movie list
+    @ManyToMany
+    private List<Movie> watchedFilms;
+
+    @ManyToMany
+    private List<Movie> wishlistFilms;
 
     // Getter - Setter
     public Long getId() { return id; }
