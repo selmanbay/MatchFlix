@@ -19,6 +19,7 @@ public class UserController {
             userService.registerUser(user);
             return "redirect:/"; // başarıyla kayıt olunca ana sayfaya dön
         } catch (Exception e) {
+
             return "redirect:/?error=" + e.getMessage();
         }
     }

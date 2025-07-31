@@ -20,6 +20,7 @@ public class UserService {
 
     // Giriş işlemi
     public User loginUser(String email, String password) throws Exception {
+        System.out.println("Login email: " + email);
         User user = userRepository.findByEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
             throw new Exception("Email veya şifre hatalı!");
