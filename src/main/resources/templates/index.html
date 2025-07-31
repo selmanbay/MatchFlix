@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Matchflix</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
+<header>
     <h2 class="logo">Matchflix</h2>
     <div class="header-buttons">
         <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#registerModal">Kayıt Ol</button>
@@ -19,8 +19,12 @@
 <!-- Yıldız arka planı -->
 <canvas id="stars"></canvas>
 
+<!-- Gezegenler -->
+<div class="planet blue"></div>
+<div class="planet orange"></div>
+
 <div class="container mt-4">
-    <form id="movieForm" action="/add" method="post">
+    <form id="movieForm">
         <div class="autocomplete mb-3">
             <input type="text" id="movieInput" name="title" placeholder="Film adı" autocomplete="off" class="form-control" required>
             <ul id="suggestions" class="list-group"></ul>
@@ -29,10 +33,22 @@
     </form>
 </div>
 
+<!-- Kategoriler -->
 <div class="category-section mt-5">
-    <div class="category-title h4">🔥 Aksiyon</div>
-    <div class="carousel d-flex gap-2 flex-wrap" id="carousel">
-        <!-- Kartlar buraya eklenecek -->
+    <div class="category-title h4">Aksiyon</div>
+    <div class="carousel" id="carousel-aksiyon">
+        <div class="film-card filled">Inception</div>
+        <div class="film-card filled">John Wick</div>
+        <div class="film-card empty">+</div>
+    </div>
+</div>
+
+<div class="category-section mt-5">
+    <div class="category-title h4">Komedi</div>
+    <div class="carousel" id="carousel-komedi">
+        <div class="film-card filled">The Mask</div>
+        <div class="film-card filled">Hangover</div>
+        <div class="film-card empty">+</div>
     </div>
 </div>
 
@@ -65,8 +81,27 @@
     </div>
 </div>
 
-<script src="/stars.js"></script>
+<script src="stars.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Formdan film ekleme
+    document.getElementById('movieForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const input = document.getElementById('movieInput');
+        const title = input.value.trim();
+        if(title) {
+            const card = document.createElement('div');
+            card.className = 'film-card filled';
+            card.textContent = title;
+            document.getElementById('carousel-komedi').insertBefore(
+                card,
+                document.querySelector('#carousel-komedi .film-card.empty')
+            );
+            input.value = '';
+        }
+    });
+</script>
 </body>
 </html>
+
 

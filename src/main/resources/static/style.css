@@ -74,7 +74,7 @@ header {
     z-index: 0; /* -5 yerine 0 yap */
 }
 .planet.blue {
-    width: 180px; height: 180px;
+    width: 280px; height: 280px;
     top: 20%; left: 10%;
     background: radial-gradient(circle, #3a7bd5, #0f2027);
     box-shadow: 0 0 60px rgba(58,123,213,0.5);
@@ -144,13 +144,16 @@ button.add:hover {
 .category-title {
     font-size: 2em;
     margin-bottom: 20px;
-    color: #e0e0e0;
+    color: #ffffff !important;
+    position: relative; /* yeni katman oluşturur */
+    z-index: 10;
 }
 .carousel {
     display: flex;
     gap: 25px;
     overflow-x: auto;
     scroll-behavior: smooth;
+    padding-bottom: 15px;
 }
 .carousel::-webkit-scrollbar { display: none; }
 .film-card {
@@ -167,7 +170,7 @@ button.add:hover {
 
 /* Boş slot */
 .film-card.empty {
-    background: rgba(255,255,255,0.05);
+    background: rgba(243, 240, 240, 0.05);
     color: #a3aeaf;
 }
 
