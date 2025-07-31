@@ -12,13 +12,12 @@ header {
     top: 0; left: 0;
     width: 100%;
     height: 70px;
-    background: transparent;
+    background: transparent ;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
     z-index: 100;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 .logo {
     font-family: 'Montserrat', sans-serif;
@@ -43,9 +42,9 @@ header {
 }
 .header-buttons button {
     padding: 10px 22px;
-    border: none;
+    border: outset;
     border-radius: 25px;
-    background: darkblue ;
+    background: rgba(243, 240, 240, 0.05);
     color: #f1f1f1;
     font-weight: bold;
     cursor: pointer;
