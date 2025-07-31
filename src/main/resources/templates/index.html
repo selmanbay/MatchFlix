@@ -42,9 +42,9 @@
         <div class="modal-content p-4">
             <h4 class="mb-3">Kayıt Ol</h4>
             <form th:action="@{/users/add}" method="post" class="clean-form">
-                <input type="text" name="username" class="custom-input" placeholder="Username" required>
+                <input type="text" name="username" class="custom-input" placeholder="Kullanıcı Adı" required>
                 <input type="email" name="email" class="custom-input" placeholder="Email" required>
-                <input type="password" name="password" class="custom-input" placeholder="Password" required>
+                <input type="password" name="password" class="custom-input" placeholder="Şifre" required>
                 <button type="submit" class="btn btn-primary w-100 mt-3">Kayıt Ol</button>
             </form>
         </div>
@@ -58,7 +58,7 @@
             <h4 class="mb-3">Giriş Yap</h4>
             <form th:action="@{/users/login}" method="post" class="clean-form">
                 <input type="email" name="email" class="custom-input" placeholder="Email" required>
-                <input type="password" name="password" class="custom-input" placeholder="Password" required>
+                <input type="password" name="password" class="custom-input" placeholder="Şifre" required>
                 <button type="submit" class="btn btn-success w-100 mt-3">Giriş Yap</button>
             </form>
         </div>
