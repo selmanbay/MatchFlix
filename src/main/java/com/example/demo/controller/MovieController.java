@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Movie;
+import com.example.demo.repository.MovieRepository;
 import com.example.demo.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,16 @@ public class MovieController {
     public String home(Model model) {
         model.addAttribute("movies", movieService.getAllMovies());
         return "index";
+    }
+
+    // Film kaydetme
+    @PostMapping("/save")
+    public String saveMovie(@RequestParam String title, Model model) {
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        movieService.addMovie(movie);
+        model.addAttribute("message", "✅ Film başarıyla kaydedildi!");
+        return "index";  // index.html tekrar açılır
     }
 
     // Film ekleme
