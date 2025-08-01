@@ -11,7 +11,7 @@ window.addEventListener("resize", resizeCanvas);
 
 // Yıldız sayısını azalt (150 → 80 daha akıcı olur)
 let stars = [];
-const numStars = 80;
+const numStars = 30;
 
 for (let i = 0; i < numStars; i++) {
     stars.push({
